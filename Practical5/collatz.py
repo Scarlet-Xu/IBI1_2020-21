@@ -1,19 +1,21 @@
-#Function: compute the sum of the first two numbers of the number
-# f(1) = 1
-# f(2) = 1
+# Function:describe r and the total number of infected students
+#f(1) = 84
 #repeat
-#      f(n)= f(n-1) + f(n-2)
-#      check if n = 13
-#      if no: continue
-#      if yes: done!
+#     f(n) = r * f(n-1)
+#     if n <=  5
+#      continue
+#      if n > 5
+       done!
 
-X = 1 
-print(X)
-Y = 1
-print(Y)
-for i in range (3,14): 
-    Z = X + Y
-    X = Y
-    Y = Z
-    print(Z)
-
+#describe the given statistic
+str(a) = 84
+str(r) = 1.2
+#use a loop to describe the process
+for i in range (2,7)
+#conduct the round
+    b = a * r
+#begin a new round with assigning the initial value
+    a = b
+#output the result
+    print(r)
+    print(b) 
