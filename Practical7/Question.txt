@@ -1,0 +1,3 @@
+Question£ºI want to explore the changes of total COVID-19 cases in South Korea, China, and Japan.
+The solution to this question in covid.py is from line 74 to line 113
+Results: since Dec.31st 2019, the total COVID-19 cases in China has increased dramatically, much larger than that of Japan and South Korea, and the speed of cases appeared in China was also much faster than Japan and South Korea. Japan had the lowest number of infected people, which was almost zero.
