@@ -1,0 +1,16 @@
+# input your full name and your undergraduate programme
+first_name = input("Your first name:")
+last_name = input("Your last name:")
+undergraduate_programme =input("Your undergraduate programme:")
+
+# make a new instance of class called Students
+class Student(object):
+    # initialse the instance with the following attributes
+    def __init__(self, first_name,last_name, undergraduate_programme):
+        # define all the parameters
+        self.first_name= first_name
+        self.last_name= last_name
+        self.undergraduate_programme= undergraduate_programme
+
+# give an output
+print("Name:",first_name,last_name, "Undergraduate programme:", undergraduate_programme)
