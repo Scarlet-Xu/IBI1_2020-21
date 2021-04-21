@@ -1,0 +1,19 @@
+Task 1: Sequence for human SOD2 protein and sequence of	a mouse	SOD2 protein
+Alignment score:1091
+Similarity between two sequences: 89.63963963963964%
+These two sequences are the most similiar among three sequences, so in this gene sequence, humans and mice are closely related.
+
+Task 2: Sequence for human SOD2 protein and a random sequence
+Alignment score: -250
+Similarity between two sequences: 5.405405405405405%
+The human sequence and the random sequence are less similiar than others.
+
+Task 3: Sequence of	a mouse	SOD2 protein and a random sequence
+Alignment score: -250
+Similarity between two sequences: 5.855855855855852%
+
+The significance of the BLOSUM is to find different parts between two amino acid sequences, which means to figure out the conservatism of amino acids.
+All the species have only one ancester, but during the long-term evolution, lots of gene materials have changed to better adapt to different environments.
+The concervatism means that some gene materials still remain the same or remain highly similarity within different organisms despite evolution.
+So the highly conserved genes play a quite important role in the animinals, and lots of deadly mutations happened in the conserved genes.
+The most widely used one is BLOSUM62. The higher scores, the higher the similarity between the amino acids.
