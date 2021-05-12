@@ -5,7 +5,10 @@ d=abs(a-c)
 e=abs(a-b)
 print(d)
 print(e)
-d>=e
+if d>=e:
+    print(True)
+else:
+    print(False)
 
 # ABOUT BOOLEAN
 # ROUND 1
