@@ -9,13 +9,27 @@
 
 #describe the given statistic
 a= 84
+r= 1.2
+#use a loop to describe the process
+for i in range (2,7):
+#conduct the round
+    b = a * r
+#begin a new round with assigning the initial value
+    a = b + a
+#output the result
+print(r)
+print(a)
+
+# the situation that r = 1.1
+a= 84
 r= 1.1
 #use a loop to describe the process
 for i in range (2,7):
 #conduct the round
     b = a * r
 #begin a new round with assigning the initial value
-    a = b
+    a = b + a
 #output the result
-    print(r)
-    print(b) 
+print(r)
+print(a)
+
