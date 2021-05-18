@@ -1,77 +1,158 @@
 # import all the modules needed
-import re
-from xml.dom.minidom import parse
+# parse the xml file to the dom file
 import xml.dom.minidom
-# parse the xlm to the dom
-DOMTree = xml.dom.minidom.parse("go_obo.xml")
+DOMTree = xml.dom.minidom.parse('go_obo.xml')
 collection = DOMTree.documentElement
-# define the term element as "DNA_associated"
-information_associated = collection.getElementsByTagName("term")
+terms = collection.getElementsByTagName('term')
 
-# Initially we want to know if there is DNA-related gene ontology in this xml
-# test the existence of DNA first
-# define an integer to save the final childnode value
-DNA_list = 0
-for term in information_associated:
-    # define "defstr" as an element of term, and the [0] means that choose the first part of the "defstr"
-    defstr = term.getElementsByTagName("defstr")[0]
-    # define the is_a as another element of term
-    is_a = term.getElementsByTagName("is_a")
-    # search whether "DNA" appears in the first portion of "defstr" element or not
-    if re.search("DNA", (defstr.childNodes[0].data)):
-        # if DNA exists, we choose this term and tend to figure out the childnodes it has in the is_a element
-        # calculate the total length of childnodes in every is_a element, and assign the value to the established space
-       DNA_list += is_a.length
-print(DNA_list)
+# build up a new dictionary
+dict = {}
+for term in terms:
+    id = term.getElementsByTagName('id')
+    dict[id[0].firstChild.data] = []
+for term in terms:
+    id = term.getElementsByTagName('id')
+    is_as = term.getElementsByTagName('is_a')
+    for is_a in is_as:
+        dict[is_a.firstChild.data].append(id[0].firstChild.data)
 
-# Secondly we want to know if there is RNA-related gene ontology in this xml
-RNA_list = 0
-for term in information_associated:
-    defstr = term.getElementsByTagName("defstr")[0]
-    is_a = term.getElementsByTagName("is_a")
-    # search whether "RNA" appears in the "defstr" element or not
-    if re.search("RNA", (defstr.childNodes[0].data)):
-       RNA_list += is_a.length
-print(RNA_list)
+# Find out all the keywords named "DNA"
+def count(species):
+    for term in terms:
+        if species in term.getElementsByTagName('defstr')[0].firstChild.data:
+            ids = term.getElementsByTagName('id')[0].firstChild.data
+            if dict[ids]:
+                counter = dict[ids]
+                n = count1(counter)
+                s = str(n)
+    return s
 
-protein_list = 0
-for term in information_associated:
-    defstr = term.getElementsByTagName("defstr")[0]
-    is_a = term.getElementsByTagName("is_a")
-    # search whether "protein" appears in the "defstr" element or not
-    if re.search("protein", (defstr.childNodes[0].data)):
-       protein_list += is_a.length
-print(protein_list)
+# Calculate the number of childnodes in DNA
+def count1(counter):
+    for i in range(len(counter)):
+        if counter[i] not in store_childNodes1:
+            store_childNodes1.append(counter[i])
+            count1(dict[counter[i]])
+    return len(store_childNodes1)
 
-# I choose glycoprotein as the fourth kind of macromolecules
-glycoprotein_list = 0
-for term in information_associated:
-    defstr = term.getElementsByTagName("defstr")[0]
-    is_a = term.getElementsByTagName("is_a")
-    # search whether "glycoprotein" appears in the "defstr" element or not
-    if re.search("glycoprotein", (defstr.childNodes[0].data)):
-       glycoprotein_list += is_a.length
-print(glycoprotein_list)
+store_childNodes1 = []
 
-# We use a matplotlib module to draw a pie chart
+DNA = count('DNA')
+print('ChildNodes number of DNA: ' + DNA)
+
+# Find out all the keywords named "RNA"
+def count(species):
+    for term in terms:
+        if species in term.getElementsByTagName('defstr')[0].firstChild.data:
+            ids = term.getElementsByTagName('id')[0].firstChild.data
+            if dict[ids]:
+                counter = dict[ids]
+                n = count2(counter)
+                s = str(n)
+    return s
+
+# Figure out the specific number of childnodes in RNA
+def count2(counter):
+    for i in range(len(counter)):
+        if counter[i] not in store_childNodes2:
+            store_childNodes2.append(counter[i])
+            count2(dict[counter[i]])
+    return len(store_childNodes2)
+
+store_childNodes2=[]
+RNA = count('RNA')
+print('ChildNodes number of RNA: ' + RNA)
+
+# In protein part, there were two kinds of situations
+# This function is used to find out all the id named " Protein"
+def count(species):
+    for term in terms:
+        if species in term.getElementsByTagName('defstr')[0].firstChild.data:
+            ids = term.getElementsByTagName('id')[0].firstChild.data
+            if dict[ids]:
+                counter = dict[ids]
+                n = count3(counter)
+                s = str(n)
+    return s
+
+# calculate the corresponding number of childnodes
+def count3(counter):
+    for i in range(len(counter)):
+        if counter[i] not in store_childNodes3:
+            store_childNodes3.append(counter[i])
+            count3(dict[counter[i]])
+    return len(store_childNodes3)
+
+store_childNodes3 = []
+Protein = count('Protein')
+
+# find the keywords of "protein"
+def count(species):
+    for term in terms:
+        if species in term.getElementsByTagName('defstr')[0].firstChild.data:
+            ids = term.getElementsByTagName('id')[0].firstChild.data
+            if dict[ids]:
+                counter = dict[ids]
+                n = count5(counter)
+                s = str(n)
+    return s
+
+# This function is used to find out all the id "protein"
+def count5(counter):
+    for i in range(len(counter)):
+        if counter[i] not in store_childNodes3:
+            store_childNodes3.append(counter[i])
+            count5(dict[counter[i]])
+    return len(store_childNodes3)
+
+store_childNodes5 = []
+protein = count('protein')
+
+# Because id proving protein can be either "protein" or "Protein", so all we did before is to find out these two ids and add the corresponding number of chilnodes together
+total_protein = int(protein)+int(Protein)
+print('ChildNodes number of protein: ' + str(total_protein))
+
+# find the keywords of glycoprotein
+def count(species):
+    for term in terms:
+        if species in term.getElementsByTagName('defstr')[0].firstChild.data:
+            ids = term.getElementsByTagName('id')[0].firstChild.data
+            if dict[ids]:
+                counter = dict[ids]
+                n = count4(counter)
+    print('ChildNodes number of ' + species + ': ' + str(n))
+    return n
+
+# a function that is used to calculate all the childnodes of glycoprotein
+def count4(counter):
+    for i in range(len(counter)):
+        if counter[i] not in store_childNodes4:
+            store_childNodes4.append(counter[i])
+            count4(dict[counter[i]])
+    return len(store_childNodes4)
+
+store_childNodes4 = []
+Glycoprotein = count('glycoprotein')
+
+# How to simplify these codes above seemed a little bit difficult to me, so I had to repeat all the codes 4 times to calculate 4 types of biomolecules
+
+
 import matplotlib.pyplot as plt
-# Build up a dictionary to input the names of macromolecules and the number of corresponding childnodes
-dic = {'DNA': DNA_list, "RNA": RNA_list, "protein": protein_list, "glycoprotein": glycoprotein_list}
-# make a corresponding label of each macromolecule
-labels = {"DNA", "RNA", "Protein", "Glycoprotein"}
-# input the total cases of each country
-sizes = dic.values()
+# Build a dictionary to store the keywords and the relavent values
+dic2 = {'DNA': DNA, 'RNA': RNA, 'Protein': total_protein, 'Glycoprotein': Glycoprotein}
+labels = dic2.keys()
+sizes = dic2.values()
 # show the distance each part away from the center of the circle, and every portion has equal distance away from the center
-explode = (0, 0, 0, 0,0)
-# assign some values to this pie chart
+explode = (0, 0, 0, 0)
+# Give this pie chart some characteristics
 plt.pie(sizes,explode=None,
               labels=labels,
               autopct='%1.1f%%',
               shadow=False,
               startangle=90,
               colors = {"indigo","mediumslateblue", "darkviolet", "rebeccapurple"})
-# give the pie chart a title
-plt.title("The number of childNodes of DNA, RNA, protein and glycoprotein")
+# give a title
+plt.title('The number of childnodes in DNA,RNA,protein and glycoprotein')
 # ensure that the chart is a circle
 plt.axis('equal')
 plt.show()
